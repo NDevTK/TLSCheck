@@ -1,3 +1,5 @@
+"use strict";
+
 browser.webRequest.onHeadersReceived.addListener(async response => {
   let info = await browser.webRequest.getSecurityInfo(response.requestId, {certificateChain: true});
   if (info.state !== "secure") return
