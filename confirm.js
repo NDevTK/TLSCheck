@@ -1,7 +1,7 @@
-browser.runtime.onMessage.addListener((message, sender) => {
+browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   switch (message.type) {
     case 'confirm':
-      confirm(message.body);
-      break
+      sendResponse(confirm(message.body));
+      return
   }
 });
