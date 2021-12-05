@@ -1,0 +1,20 @@
+{
+  "name": "TLSCheck",
+  "version": "1.0",
+  "description": "Firefox browser extension to check the certificate validity.",
+  "permissions": [
+    "webRequestBlocking",
+    "webRequest",
+    "<all_urls>"
+  ],
+  "cross_origin_embedder_policy": {
+    "value": "require-corp"
+  },
+  "cross_origin_opener_policy": {
+    "value": "same-origin"
+  },
+  "background": {
+    "scripts":["background.js"]
+  },
+  "manifest_version": 2
+}
