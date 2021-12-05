@@ -19,7 +19,7 @@ browser.webRequest.onHeadersReceived.addListener(async response => {
 
 
 let salt = browser.storage.local.get("salt")["salt"] ?? generateRandom(50);
-browser.storage.local.set({'salt', salt});
+browser.storage.local.set({'salt': salt});
 
 
 function generateRandom(length) {
