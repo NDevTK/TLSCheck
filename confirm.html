@@ -1,8 +1,15 @@
-<title>Confirm</title>
-<script>
-"use strict";
-  
-browser.runtime.onMessage.addListener(message => {
-  return Promise.resolve(confirm(message.body));
-});
-</script>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Confirm</title>
+  </head>
+  <body>
+    <script>
+      "use strict";
+      browser.runtime.onMessage.addListener(message => {
+        return Promise.resolve(confirm(message.body));
+      });
+    </script>
+  </body>
+</html>
