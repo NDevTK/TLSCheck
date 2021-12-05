@@ -27,6 +27,8 @@ async function sha256(data) {
 }
 
 async function confirm(message) {
-  let w = await browser.windows.create({type: 'popup', url: "confirm.html"});
-  return browser.tabs.sendMessage(w.tabs[0].id, message);
+  let popup = await browser.windows.create({type: 'popup', url: "confirm.html"});
+  let result = await browser.tabs.sendMessage(popup.tabs[0].id, message);
+  browser.windows.remove(popup.id);
+  return result;
 }
