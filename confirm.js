@@ -1,7 +1,8 @@
-browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
+"use strict";
+
+browser.runtime.onMessage.addListener(message => {
   switch (message.type) {
     case 'confirm':
-      sendResponse(confirm(message.body));
-      return
+      return Promise.resolve(confirm(message.body));
   }
 });
