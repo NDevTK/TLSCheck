@@ -8,10 +8,10 @@ browser.webRequest.onHeadersReceived.addListener(async response => {
   let check = await browser.storage.local.get(hostHashed);
   check = check[hostHashed];
   if (check === undefined) {
-    await browser.storage.local.set({hostHashed, root});
+    await browser.storage.local.set({hostHashed: root});
   } else if (check !== root) {
     if (confirm('CA for ' + host + ' changed to ' + rootInfo.issuer) === true) {
-      await browser.storage.local.set({hostHashed, root});
+      await browser.storage.local.set({hostHashed: root});
     } else {
       return {cancel: true};
     }
