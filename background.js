@@ -19,12 +19,6 @@ browser.webRequest.onHeadersReceived.addListener(async response => {
 }, {urls: ['<all_urls>']}, ['blocking']);
 
 
-// Yes its global.
-let salt = await browser.storage.local.get("salt");
-salt = salt["salt"] ?? generateRandom(50);
-browser.storage.local.set({'salt': salt});
-
-
 function generateRandom(length) {
     let charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     let result = "";
@@ -44,7 +38,7 @@ function generateRandom(length) {
 }
 
 async function sha256(data) {
-    const msgUint8 = new TextEncoder().encode(data + salt);
+    const msgUint8 = new TextEncoder().encode(data);
     const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
     const hashArray = Array.from(new Uint8Array(hashBuffer));
     const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
