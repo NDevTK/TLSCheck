@@ -10,7 +10,7 @@ browser.webRequest.onHeadersReceived.addListener(async response => {
   if (check === undefined) {
     await browser.storage.local.set({[hostHashed]: root});
   } else if (check !== root) {
-    if (confirm('CA for ' + host + ' changed to ' + rootInfo.issuer) === true) {
+    if (await confirm('CA for ' + host + ' changed to ' + rootInfo.issuer) === true) {
       await browser.storage.local.set({[hostHashed]: root});
     } else {
       return {cancel: true};
@@ -24,4 +24,9 @@ async function sha256(data) {
     const hashArray = Array.from(new Uint8Array(hashBuffer));
     const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
     return hashHex;
+}
+
+async function confirm(message) {
+  let w = await browser.windows.create({type: 'popup', url: "confirm.html"});
+  return browser.tabs.sendMessage(w.tabs[0].id, message);
 }
