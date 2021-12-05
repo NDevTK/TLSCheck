@@ -4,7 +4,8 @@ browser.webRequest.onHeadersReceived.addListener(async response => {
   let root = info.certificates[info.certificates.length - 1].fingerprint.sha256;
   let host = new URL(response.url).host;
   let hostHashed = await sha256(host);
-  let check = await browser.storage.local.get(hostHashed)[hostHashed];
+  let check = await browser.storage.local.get(hostHashed);
+  let check = check[hostHashed];
   if (check === undefined) {
     await browser.storage.local.set({hostHashed, root});
   } else if (check !== root) {
@@ -17,8 +18,9 @@ browser.webRequest.onHeadersReceived.addListener(async response => {
 }, {urls: ['<all_urls>']}, ['blocking']);
 
 
-
-let salt = browser.storage.local.get("salt")["salt"] ?? generateRandom(50);
+// Yes its global.
+let salt = await browser.storage.local.get("salt");
+salt = salt["salt"] ?? generateRandom(50);
 browser.storage.local.set({'salt': salt});
 
 
