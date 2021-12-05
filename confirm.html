@@ -3,13 +3,11 @@
   <head>
     <meta charset="utf-8" />
     <title>Confirm</title>
-  </head>
-  <body>
     <script>
       "use strict";
       browser.runtime.onMessage.addListener(message => {
         return Promise.resolve(confirm(message.body));
       });
     </script>
-  </body>
+  </head>
 </html>
