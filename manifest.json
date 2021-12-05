@@ -1,7 +1,7 @@
 {
   "name": "TLSCheck",
   "version": "1.0",
-  "description": "Firefox browser extension to check the certificate validity.",
+  "description": "Firefox browser extension to perform certificate pinning.",
   "permissions": [
     "webRequestBlocking",
     "webRequest",
